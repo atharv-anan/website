@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMLSE - Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.35;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 60px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-section img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .logo-section h1 {
+            color: #D4AF37;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .auth-buttons button {
+            padding: 12px 28px;
+            border: 2px solid #D4AF37;
+            background: white;
+            color: #D4AF37;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-buttons button:hover {
+            background: #D4AF37;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        main::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1000px;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 20px;
+            z-index: -1;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .coming-soon {
+            font-size: 72px;
+            font-weight: 800;
+            color: #D4AF37;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-size: 24px;
+            color: #000000;
+            max-width: 700px;
+            line-height: 1.6;
+            font-weight: 400;
+            animation: fadeInUp 1.2s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline strong {
+            color: #000000;
+            font-weight: 600;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 30px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .logo-section h1 {
+                font-size: 24px;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .auth-buttons button {
+                width: 100%;
+            }
+
+            .coming-soon {
+                font-size: 48px;
+            }
+
+            .tagline {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-section">
+            <img src="AIMLSE_LOGO.png" alt="AIMLSE Logo">
+            <h1>AIMLSE</h1>
+        </div>
+        <div class="auth-buttons">
+            <button onclick="alert('Educator Sign In - Coming Soon!')">Sign In for Educators</button>
+            <button onclick="alert('Developer Sign In - Coming Soon!')">Sign In for Developers</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="coming-soon">Coming Soon</div>
+        <div class="tagline">
+            <strong>Revolutionizing the Development of Machine Learning</strong>
+        </div>
+    </main>
+</body>
+</html>
