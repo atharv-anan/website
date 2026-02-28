@@ -1,209 +1,640 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page - AIMLSE</title>
-    <style>
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+
+const AimlseComingSoon = () => {
+  const [showNotification, setShowNotification] = useState(false);
+
+  const handleNotifyClick = () => {
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
+  };
+
+  return (
+    <div className="landing">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Urbanist:wght@300;400;500;600;700&display=swap');
+        
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+          overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('background.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.35;
-            z-index: -1;
+        :root {
+          --gold: #d4af37;
+          --gold-light: #f4d03f;
+          --gold-dark: #b8960c;
+          --black: #0a0a0a;
+          --black-soft: #141414;
+          --gray: #8a8a8a;
+          --white: #ffffff;
         }
 
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 60px;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
-            backdrop-filter: blur(10px);
+        .landing {
+          min-height: 100vh;
+          background: var(--black);
+          color: var(--white);
+          font-family: 'Urbanist', -apple-system, sans-serif;
+          position: relative;
+          overflow-x: hidden;
         }
 
+        /* Ambient background */
+        .landing::before {
+          content: '';
+          position: fixed;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: 
+            radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+            radial-gradient(circle at 70% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 40%);
+          animation: drift 20s ease-in-out infinite;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        @keyframes drift {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          33% { transform: translate(3%, 3%) rotate(1deg); }
+          66% { transform: translate(-3%, -3%) rotate(-1deg); }
+        }
+
+        /* Grain overlay */
+        .landing::after {
+          content: '';
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+          pointer-events: none;
+          z-index: 1;
+          mix-blend-mode: overlay;
+        }
+
+        .content {
+          position: relative;
+          z-index: 2;
+        }
+
+        /* Logo Section */
         .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+          padding: 60px 20px 40px;
+          text-align: center;
         }
 
-        .logo-section img {
-            width: 60px;
-            height: 60px;
+        .logo-placeholder {
+          width: 120px;
+          height: 120px;
+          margin: 0 auto;
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+          border: 2px solid rgba(212, 175, 55, 0.3);
+          border-radius: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Rajdhani', sans-serif;
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 3px;
+          color: var(--gold);
+          position: relative;
+          overflow: hidden;
+          backdrop-filter: blur(10px);
         }
 
-        .logo-section h1 {
-            color: #D4AF37;
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: 1px;
+        .logo-placeholder::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+          animation: logoShine 4s ease-in-out infinite;
         }
 
-        .auth-buttons {
-            display: flex;
-            gap: 20px;
+        @keyframes logoShine {
+          0%, 100% { transform: translate(-100%, -100%) rotate(0deg); }
+          50% { transform: translate(100%, 100%) rotate(45deg); }
         }
 
-        .auth-buttons button {
-            padding: 12px 28px;
-            border: 2px solid #D4AF37;
-            background: white;
-            color: #D4AF37;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .logo-text {
+          position: relative;
+          z-index: 1;
         }
 
-        .auth-buttons button:hover {
-            background: #D4AF37;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        /* Hero Section */
+        .hero {
+          min-height: 60vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 80px 20px;
         }
 
-        /* Main Content */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 60px 40px;
-            text-align: center;
-            position: relative;
+        .headline {
+          font-family: 'Rajdhani', sans-serif;
+          font-size: clamp(36px, 8vw, 90px);
+          font-weight: 700;
+          line-height: 1.1;
+          margin-bottom: 30px;
+          background: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.6) 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          letter-spacing: -1px;
         }
 
-        main::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 1000px;
-            height: 80%;
-            background: rgba(255, 255, 255, 0.75);
-            border-radius: 20px;
-            z-index: -1;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        .subheadline {
+          font-size: clamp(16px, 2.5vw, 22px);
+          font-weight: 300;
+          color: var(--gray);
+          max-width: 700px;
+          margin: 0 auto 60px;
+          line-height: 1.7;
         }
 
-        .coming-soon {
-            font-size: 72px;
-            font-weight: 800;
-            color: #D4AF37;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            animation: fadeInUp 1s ease;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-            position: relative;
-            z-index: 1;
+        .notify-btn {
+          background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+          border: none;
+          padding: 18px 60px;
+          border-radius: 50px;
+          color: var(--black);
+          font-weight: 600;
+          font-size: 16px;
+          font-family: 'Urbanist', sans-serif;
+          cursor: pointer;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+          letter-spacing: 0.5px;
         }
 
-        .tagline {
-            font-size: 24px;
-            color: #000000;
-            max-width: 700px;
-            line-height: 1.6;
-            font-weight: 400;
-            animation: fadeInUp 1.2s ease;
-            position: relative;
-            z-index: 1;
+        .notify-btn::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.4);
+          transform: translate(-50%, -50%);
+          transition: width 0.5s, height 0.5s;
         }
 
-        .tagline strong {
-            color: #000000;
-            font-weight: 600;
+        .notify-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 15px 50px rgba(212, 175, 55, 0.4);
+        }
+
+        .notify-btn:active::before {
+          width: 400px;
+          height: 400px;
+        }
+
+        /* Notification Toast */
+        .notification {
+          position: fixed;
+          top: 30px;
+          left: 50%;
+          transform: translateX(-50%) translateY(-100px);
+          background: rgba(212, 175, 55, 0.95);
+          color: var(--black);
+          padding: 16px 32px;
+          border-radius: 50px;
+          font-weight: 600;
+          font-size: 14px;
+          opacity: 0;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 1000;
+          backdrop-filter: blur(10px);
+        }
+
+        .notification.show {
+          transform: translateX(-50%) translateY(0);
+          opacity: 1;
+        }
+
+        /* ACI Preview Section */
+        .aci-section {
+          padding: 120px 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .section-label {
+          text-align: center;
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 4px;
+          color: var(--gold);
+          margin-bottom: 20px;
+          font-weight: 600;
+        }
+
+        .section-title {
+          font-family: 'Rajdhani', sans-serif;
+          font-size: clamp(28px, 5vw, 48px);
+          font-weight: 700;
+          text-align: center;
+          margin-bottom: 80px;
+          color: var(--white);
+        }
+
+        .aci-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 24px;
+          margin-bottom: 50px;
+        }
+
+        .aci-card {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(212, 175, 55, 0.15);
+          border-radius: 20px;
+          padding: 50px 30px;
+          text-align: center;
+          backdrop-filter: blur(20px);
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .aci-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, var(--gold), transparent);
+          transform: translateX(-100%);
+          transition: transform 0.8s ease;
+        }
+
+        .aci-card:hover::before {
+          transform: translateX(100%);
+        }
+
+        .aci-card:hover {
+          transform: translateY(-12px);
+          border-color: rgba(212, 175, 55, 0.4);
+          background: rgba(255, 255, 255, 0.04);
+          box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.3),
+            0 0 40px rgba(212, 175, 55, 0.1);
+        }
+
+        .aci-number {
+          font-family: 'Rajdhani', sans-serif;
+          font-size: 56px;
+          font-weight: 700;
+          background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: 16px;
+          letter-spacing: 2px;
+        }
+
+        .aci-name {
+          font-size: 22px;
+          font-weight: 600;
+          color: var(--white);
+          margin-bottom: 8px;
+        }
+
+        .aci-line {
+          width: 40px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, var(--gold), transparent);
+          margin: 20px auto;
+        }
+
+        .caption {
+          text-align: center;
+          color: var(--gold);
+          font-size: 18px;
+          font-style: italic;
+          font-weight: 300;
+        }
+
+        /* Features Section */
+        .features {
+          padding: 120px 20px;
+          background: linear-gradient(180deg, transparent, rgba(212, 175, 55, 0.02), transparent);
+        }
+
+        .features-grid {
+          max-width: 1000px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 40px;
+        }
+
+        .feature-item {
+          text-align: center;
+          opacity: 0;
+          animation: fadeInUp 0.8s ease forwards;
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
-        /* Responsive Design */
+        .feature-item:nth-child(1) { animation-delay: 0.1s; transform: translateY(20px); }
+        .feature-item:nth-child(2) { animation-delay: 0.2s; transform: translateY(20px); }
+        .feature-item:nth-child(3) { animation-delay: 0.3s; transform: translateY(20px); }
+        .feature-item:nth-child(4) { animation-delay: 0.4s; transform: translateY(20px); }
+        .feature-item:nth-child(5) { animation-delay: 0.5s; transform: translateY(20px); }
+
+        .feature-icon {
+          width: 50px;
+          height: 50px;
+          margin: 0 auto 20px;
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+          border: 1px solid rgba(212, 175, 55, 0.2);
+          border-radius: 12px;
+          transition: all 0.4s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+          transform: translateY(-5px);
+          border-color: rgba(212, 175, 55, 0.4);
+          box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+
+        .feature-title {
+          font-size: 15px;
+          font-weight: 500;
+          color: var(--white);
+          line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+          padding: 100px 20px 50px;
+          text-align: center;
+          border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-tagline {
+          font-family: 'Rajdhani', sans-serif;
+          font-size: clamp(22px, 4vw, 36px);
+          font-weight: 600;
+          color: var(--white);
+          margin-bottom: 30px;
+          letter-spacing: 1px;
+        }
+
+        .footer-contact {
+          margin-bottom: 40px;
+        }
+
+        .email-link {
+          color: var(--gold);
+          text-decoration: none;
+          font-size: 16px;
+          transition: all 0.3s ease;
+          position: relative;
+          padding-bottom: 2px;
+        }
+
+        .email-link::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: var(--gold);
+          transition: width 0.3s ease;
+        }
+
+        .email-link:hover::after {
+          width: 100%;
+        }
+
+        .email-link:hover {
+          color: var(--gold-light);
+        }
+
+        .footer-copyright {
+          color: #555;
+          font-size: 13px;
+          font-weight: 300;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            header {
-                padding: 20px 30px;
-                flex-direction: column;
-                gap: 20px;
-            }
+          .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            font-size: 16px;
+          }
 
-            .logo-section h1 {
-                font-size: 24px;
-            }
+          .aci-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+          }
 
-            .auth-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
+          .aci-card {
+            padding: 40px 20px;
+          }
 
-            .auth-buttons button {
-                width: 100%;
-            }
+          .aci-number {
+            font-size: 42px;
+          }
 
-            .coming-soon {
-                font-size: 48px;
-            }
+          .aci-name {
+            font-size: 18px;
+          }
 
-            .tagline {
-                font-size: 18px;
-            }
+          .features-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+          }
         }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="logo-section">
-            <img src="AIMLSE_LOGO.png" alt="AIMLSE Logo">
-            <h1>AIMLSE</h1>
-        </div>
-        <div class="auth-buttons">
-            <button onclick="alert('Educator Sign In - Coming Soon!')">Sign In for Educators</button>
-            <button onclick="alert('Developer Sign In - Coming Soon!')">Sign In for Developers</button>
-        </div>
-    </header>
 
-    <main>
-        <div class="coming-soon">Coming Soon</div>
-        <div class="tagline">
-            <strong>Revolutionizing the Development of Machine Learning</strong>
+        /* Initial animations */
+        .fade-in {
+          opacity: 0;
+          animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+          to { opacity: 1; }
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+      `}</style>
+
+      <div className="content">
+        {/* Notification Toast */}
+        <div className={`notification ${showNotification ? 'show' : ''}`}>
+          You'll be notified when AIMLSE launches
         </div>
-    </main>
-</body>
-</html>
+
+        {/* Logo Section */}
+        <section className="logo-section fade-in delay-1">
+          <div className="logo-placeholder">
+            <span className="logo-text">AIMLSE</span>
+          </div>
+        </section>
+
+        {/* Hero Section */}
+        <section className="hero">
+          <motion.h1 
+            className="headline"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            Something Intelligent<br />is Coming.
+          </motion.h1>
+
+          <motion.p 
+            className="subheadline"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            AIMLSE is redefining how AI is built, learned, and deployed through an Adaptive Coding Interface.
+          </motion.p>
+
+          <motion.button 
+            className="notify-btn"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            onClick={handleNotifyClick}
+          >
+            Notify Me
+          </motion.button>
+        </section>
+
+        {/* ACI Preview */}
+        <section className="aci-section">
+          <div className="section-label fade-in delay-2">ADAPTIVE CODING INTERFACE</div>
+          <h2 className="section-title fade-in delay-3">Four Dimensions of Creation</h2>
+
+          <div className="aci-grid">
+            <motion.div 
+              className="aci-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+            >
+              <div className="aci-number">F0</div>
+              <div className="aci-name">Templates</div>
+              <div className="aci-line"></div>
+            </motion.div>
+
+            <motion.div 
+              className="aci-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.0 }}
+            >
+              <div className="aci-number">F1</div>
+              <div className="aci-name">Library</div>
+              <div className="aci-line"></div>
+            </motion.div>
+
+            <motion.div 
+              className="aci-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+            >
+              <div className="aci-number">F2</div>
+              <div className="aci-name">Blocks</div>
+              <div className="aci-line"></div>
+            </motion.div>
+
+            <motion.div 
+              className="aci-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+            >
+              <div className="aci-number">F3</div>
+              <div className="aci-name">Script</div>
+              <div className="aci-line"></div>
+            </motion.div>
+          </div>
+
+          <p className="caption">"Code that adapts as you create."</p>
+        </section>
+
+        {/* Features */}
+        <section className="features">
+          <div className="features-grid">
+            <div className="feature-item">
+              <div className="feature-icon"></div>
+              <div className="feature-title">AI-assisted development</div>
+            </div>
+
+            <div className="feature-item">
+              <div className="feature-icon"></div>
+              <div className="feature-title">Drag-and-drop modular coding</div>
+            </div>
+
+            <div className="feature-item">
+              <div className="feature-icon"></div>
+              <div className="feature-title">Script-level control</div>
+            </div>
+
+            <div className="feature-item">
+              <div className="feature-icon"></div>
+              <div className="feature-title">App deployment for AI models</div>
+            </div>
+
+            <div className="feature-item">
+              <div className="feature-icon"></div>
+              <div className="feature-title">Real-time collaboration</div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="footer">
+          <div className="footer-tagline">
+            Learn. Build. Deploy.<br />All in one place.
+          </div>
+
+          <div className="footer-contact">
+            <a href="mailto:info@aimlse.org" className="email-link">
+              info@aimlse.org
+            </a>
+          </div>
+
+          <p className="footer-copyright">
+            © 2026 AIMLSE. The future of adaptive intelligence.
+          </p>
+        </footer>
+      </div>
+    </div>
+  );
+};
+
+export default AimlseComingSoon;
